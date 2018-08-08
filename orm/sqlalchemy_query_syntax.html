@@ -1,3 +1,7 @@
+https://my.oschina.net/u/3779583/blog/1862418
+
+
+
     简单查询
     print(session.query(User).all())
     print(session.query(User.name, User.fullname).all())
@@ -31,3 +35,27 @@
     #exists
     print(session.query(User).filter(exists().where(Address.user_id == User.id)))
     print(session.query(User).filter(User.addresses.any()))
+
+
+    限制返回字段查询
+
+person = session.query(Person.name, Person.created_at,
+             Person.updated_at).filter_by(name="zhongwei").order_by(
+             Person.created_at).first()
+记录总数查询：
+
+from sqlalchemy import func
+
+# count User records, without
+# using a subquery.
+session.query(func.count(User.id))
+
+# return count of user "id" grouped
+# by "name"
+session.query(func.count(User.id)).\
+        group_by(User.name)
+
+from sqlalchemy import distinct
+
+# count distinct "name" values
+session.query(func.count(distinct(User.name)))
