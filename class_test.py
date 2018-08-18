@@ -7,14 +7,14 @@ class myclass(object):
     static_version=10.0
 
     def myclass(self):
-        print 'init my class 1'
+        print ('init my class 1')
 
 
     def myclass(self, x, y):
-        print 'init my class 2'+x+y
+        print ('init my class 2'+x+y)
 
     def sayhello(self):
-        print 'Hello'
+        print ('Hello')
 
     def calc(self, x):
         return x+x
@@ -24,10 +24,10 @@ class myclass(object):
             x=y=1
             z=0
             x=y/z
-        except IOError,e:
-            print 'IO error!'
-        except ValueError,e:
-            print 'Value error'
+        except IOError as e:
+            print ('IO error!')
+        except ValueError as e:
+            print ('Value error')
 
 class mysubclass(myclass,object):
     pass
@@ -39,10 +39,10 @@ if __name__=="__main1__":
     obj2.sayhello();
 
 def main():
-    print 'run main function'
+    print ('run main function')
     cls1 =myclass()
     cls1.sayhello()
-    print cls1.calc(100)
+    print (cls1.calc(100))
     sub1=mysubclass()
     sub1.sayhello()
     print (sub1.calc(100))
