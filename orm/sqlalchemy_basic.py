@@ -6,10 +6,10 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import Column, String, Integer, Text
 from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
-
+import mysql_rock_pwd
 
 #'数据库类型+数据库驱动名称://用户名:口令@机器地址:端口号/数据库名'
-engine = orm.create_engine("mysql+pymysql://rock:mysql.CR7156@120.79.213.203:3306/tu_share?charset=utf8", max_overflow=5,encoding='utf-8')
+engine = mysql_rock_pwd.get_engine("tu_share")
 Base = declarative_base()
 
 # 定义User对象:
@@ -42,7 +42,7 @@ print ('type:', type(user))
 user.name="Rock"
 session.add(user)
 session.delete(user)
-session.commit();
+session.rollback();
 session.close()
 
 lists= session.query(Stock).all()
@@ -55,10 +55,12 @@ for u in lists:
 # 创建session对象:
 session = DBSession()
 # 创建新User对象:
-new_stock = Stock(code='111', name='Bob', price=9.99, price_date= datetime.now(), high=0.0, low=0.0, pre_close=0.0, open=0.0)
+new_stock = Stock(code='222', name='Bob', price=9.99, price_date= datetime.now(), high=0.0, low=0.0, pre_close=0.0, open=0.0)
 # 添加到session:
 session.add(new_stock)
 # 提交即保存到数据库:
+session.commit()
+session.delete(user)
 session.commit()
 # 关闭session:
 session.close()
